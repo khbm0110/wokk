@@ -1,11 +1,5 @@
 {
   "env": {
     "API_KEY": "AIzaSyAJl7DN4AJzQnpDAjfRvstsqkvGKsdFKWw"
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ]
+  }
 }
