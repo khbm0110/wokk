@@ -77,10 +77,6 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme, theme }) => {
             )}
              <a href="#" className="text-sm font-medium leading-normal hover:text-primary transition-colors text-text-light dark:text-text-dark">{t('about')}</a>
              <Link to="/contact" className="text-sm font-medium leading-normal hover:text-primary transition-colors text-text-light dark:text-text-dark">{t('contact')}</Link>
-             <Link to="/mobile" className="flex items-center gap-1 text-sm font-medium leading-normal hover:text-primary transition-colors text-text-light dark:text-text-dark">
-                <span className="material-symbols-outlined text-base">phone_iphone</span>
-                {t('mobileApp')}
-              </Link>
           </nav>
           <div className="flex items-center gap-2">
             {isAuthenticated ? (

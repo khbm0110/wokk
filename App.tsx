@@ -20,7 +20,6 @@ import RegisterPage from './views/RegisterPage.tsx';
 import PhoneVerificationPage from './views/PhoneVerificationPage.tsx';
 import VerificationPage from './views/VerificationPage.tsx';
 import ProjectOwnerManageProjectView from './views/ProjectOwnerManageProjectView.tsx';
-import MobileApp from './mobile_app/MobileApp.tsx';
 import ServicesPage from './views/ServicesPage.tsx';
 import ContactPage from './views/ContactPage.tsx';
 
@@ -54,9 +53,6 @@ function AppContent() {
   
   return (
     <Routes>
-      {/* Mobile App Route */}
-      <Route path="/mobile/*" element={<MobileApp theme={theme} toggleTheme={toggleTheme} />} />
-
       {/* Web App Routes */}
       <Route path="/*" element={
         <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark font-body text-text-light dark:text-text-dark">
