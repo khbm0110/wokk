@@ -1,30 +1,30 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.tsx';
-import { NotificationProvider } from './context/NotificationContext.tsx';
-import { SiteSettingsProvider } from './context/SiteSettingsContext.tsx';
-import { LanguageProvider, useLanguage } from './context/LanguageContext.tsx';
-import Header from './components/layout/Header.tsx';
-import Footer from './components/layout/Footer.tsx';
-import ProtectedRoute from './components/auth/ProtectedRoute.tsx';
-import { UserRole } from './types.ts';
-import Spinner from './components/ui/Spinner.tsx';
+import { AuthProvider } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
+import { SiteSettingsProvider } from './context/SiteSettingsContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import { UserRole } from './types';
+import Spinner from './components/ui/Spinner';
 
 // Lazy load page components for code splitting
-const HomePage = lazy(() => import('./views/HomePage.tsx'));
-const ProjectsPage = lazy(() => import('./views/ProjectsPage.tsx'));
-const DashboardPage = lazy(() => import('./views/DashboardPage.tsx'));
-const AuthPage = lazy(() => import('./views/AuthPage.tsx'));
-const ProjectDetailsView = lazy(() => import('./views/ProjectDetailsView.tsx'));
-const DepositPage = lazy(() => import('./views/DepositPage.tsx'));
-const WithdrawPage = lazy(() => import('./views/WithdrawPage.tsx'));
-const RegisterRoleSelectionPage = lazy(() => import('./views/RegisterRoleSelectionPage.tsx'));
-const RegisterPage = lazy(() => import('./views/RegisterPage.tsx'));
-const PhoneVerificationPage = lazy(() => import('./views/PhoneVerificationPage.tsx'));
-const VerificationPage = lazy(() => import('./views/VerificationPage.tsx'));
-const ProjectOwnerManageProjectView = lazy(() => import('./views/ProjectOwnerManageProjectView.tsx'));
-const ServicesPage = lazy(() => import('./views/ServicesPage.tsx'));
-const ContactPage = lazy(() => import('./views/ContactPage.tsx'));
+const HomePage = lazy(() => import('./views/HomePage'));
+const ProjectsPage = lazy(() => import('./views/ProjectsPage'));
+const DashboardPage = lazy(() => import('./views/DashboardPage'));
+const AuthPage = lazy(() => import('./views/AuthPage'));
+const ProjectDetailsView = lazy(() => import('./views/ProjectDetailsView'));
+const DepositPage = lazy(() => import('./views/DepositPage'));
+const WithdrawPage = lazy(() => import('./views/WithdrawPage'));
+const RegisterRoleSelectionPage = lazy(() => import('./views/RegisterRoleSelectionPage'));
+const RegisterPage = lazy(() => import('./views/RegisterPage'));
+const PhoneVerificationPage = lazy(() => import('./views/PhoneVerificationPage'));
+const VerificationPage = lazy(() => import('./views/VerificationPage'));
+const ProjectOwnerManageProjectView = lazy(() => import('./views/ProjectOwnerManageProjectView'));
+const ServicesPage = lazy(() => import('./views/ServicesPage'));
+const ContactPage = lazy(() => import('./views/ContactPage'));
 
 
 function AppContent() {
