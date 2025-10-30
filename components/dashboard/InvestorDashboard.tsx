@@ -8,8 +8,10 @@ import { getWallet, getTransactions } from '../../services/walletService';
 import { Wallet, Transaction, Project } from '../../types';
 import ProjectList from '../project/ProjectList'; 
 import { getProjects } from '../../services/projectService';
+import { useLanguage } from '../../context/LanguageContext';
 
 const InvestorDashboard = () => {
+    const { t } = useLanguage();
     const [wallet, setWallet] = useState<Wallet | null>(null);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [investedProjects, setInvestedProjects] = useState<Project[]>([]);
@@ -29,22 +31,22 @@ const InvestorDashboard = () => {
     const portfolioContent = (
         <div className="space-y-6">
             <Card>
-                <h2 className="text-xl font-bold mb-4">Mes Investissements</h2>
-                <p className="text-gray-600 mb-6">Suivez la progression de vos projets financés.</p>
+                <h2 className="text-xl font-bold mb-4">{t('investor.myInvestments')}</h2>
+                <p className="text-gray-600 mb-6">{t('investor.followProgress')}</p>
                 <ProjectList projects={investedProjects} />
             </Card>
         </div>
     );
 
     const tabs = [
-        { label: 'Portefeuille', content: portfolioContent },
-        { label: 'Mon Portefeuille Digital', content: <WalletView wallet={wallet} transactions={transactions} /> },
-        { label: 'Mon Profil', content: <ProfileView /> }
+        { label: t('investorDashboard.tabs.portfolio'), content: portfolioContent },
+        { label: t('investorDashboard.tabs.wallet'), content: <WalletView wallet={wallet} transactions={transactions} /> },
+        { label: t('investorDashboard.tabs.profile'), content: <ProfileView /> }
     ];
 
     return (
         <div className="container mx-auto px-6 py-8">
-            <h1 className="text-3xl font-bold mb-6">Tableau de Bord Investisseur</h1>
+            <h1 className="text-3xl font-bold mb-6">{t('investorDashboard.title')}</h1>
             <Tabs tabs={tabs} />
         </div>
     );

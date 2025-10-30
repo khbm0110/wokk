@@ -63,7 +63,8 @@ const ProjectSubmissionForm = () => {
     const handleTranslate = async (field: 'title' | 'description', sourceLang: 'fr' | 'ar', targetLang: 'fr' | 'ar') => {
         const textToTranslate = formData[field][sourceLang];
         if (!textToTranslate.trim()) {
-            addNotification(`Veuillez d'abord remplir le champ en ${sourceLang === 'fr' ? 'français' : 'arabe'}.`, "error");
+            const langName = sourceLang === 'fr' ? t('common.lang.fr') : t('common.lang.ar');
+            addNotification(t('poDashboard.projectSubmit.fillSourceLangFirst', { lang: langName }), "error");
             return;
         }
         setIsTranslating(field);
@@ -77,7 +78,7 @@ const ProjectSubmissionForm = () => {
                 }
             }));
         } catch (error: any) {
-            addNotification(error.message || "Erreur de traduction.", "error");
+            addNotification(error.message || t('poDashboard.projectSubmit.translationError'), "error");
         } finally {
             setIsTranslating(null);
         }
@@ -86,7 +87,7 @@ const ProjectSubmissionForm = () => {
 
     const handleGenerateDescription = async () => {
         if (!aiPrompt.trim()) {
-            addNotification("Veuillez entrer quelques points sur votre projet.", "error");
+            addNotification(t('poDashboard.projectSubmit.aiPromptError'), "error");
             return;
         }
         setIsGenerating(true);
@@ -95,7 +96,7 @@ const ProjectSubmissionForm = () => {
             const description = await generateProjectDescription(aiPrompt);
             setGeneratedDescription(description);
         } catch (error: any) {
-            addNotification(error.message || "Erreur lors de la génération de la description.", "error");
+            addNotification(error.message || t('poDashboard.projectSubmit.aiGenerationError'), "error");
         } finally {
             setIsGenerating(false);
         }
@@ -109,7 +110,7 @@ const ProjectSubmissionForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!user) {
-            addNotification("Vous devez être connecté pour soumettre un projet.", "error");
+            addNotification(t('poDashboard.projectSubmit.loginRequired'), "error");
             return;
         }
 
@@ -149,10 +150,10 @@ const ProjectSubmissionForm = () => {
         try {
             await addProject(newProject);
             setSubmissionStatus('success');
-            addNotification("Projet soumis avec succès pour approbation !", "success");
+            addNotification(t('poDashboard.projectSubmit.submitSuccess'), "success");
         } catch (error) {
             console.error("Error submitting project:", error);
-            addNotification("Une erreur est survenue lors de la soumission.", "error");
+            addNotification(t('poDashboard.projectSubmit.submitError'), "error");
             setSubmissionStatus('idle');
         }
     };
@@ -273,7 +274,7 @@ const ProjectSubmissionForm = () => {
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Input label={t('poDashboard.projectSubmit.goal')} id="fundingGoal" type="number" min="10000" value={formData.fundingGoal} onChange={handleChange} required />
                 <Input label={t('poDashboard.projectSubmit.minInvestment')} id="minimumInvestment" type="number" min="100" value={formData.minimumInvestment} onChange={handleChange} required />
-                <Input label="Bénéfices Offerts (%)" id="equityOffered" type="number" min="1" max="100" value={formData.equityOffered} onChange={handleChange} required />
+                <Input label={t('poDashboard.projectSubmit.equityOffered')} id="equityOffered" type="number" min="1" max="100" value={formData.equityOffered} onChange={handleChange} required />
             </div>
             <div>
                  <div className="flex justify-between items-center mb-1">
@@ -328,7 +329,7 @@ const ProjectSubmissionForm = () => {
                 <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
                     <div className="flex justify-between items-center p-6 border-b border-border-light dark:border-border-dark">
                         <h2 className="text-xl font-bold text-text-light-primary dark:text-white">{t('ai.modalTitle')}</h2>
-                        <button onClick={() => setIsAiModalOpen(false)} className="text-gray-500 hover:text-gray-800 dark:hover:text-white">
+                        <button type="button" onClick={() => setIsAiModalOpen(false)} className="text-gray-500 hover:text-gray-800 dark:hover:text-white">
                             <span className="material-symbols-outlined">close</span>
                         </button>
                     </div>
@@ -354,7 +355,7 @@ const ProjectSubmissionForm = () => {
                                     <div className="flex justify-center items-center h-32"><Spinner /></div>
                                 ) : (
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Résultat Généré</label>
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('poDashboard.projectSubmit.aiResult')}</label>
                                         <textarea readOnly rows={6} className="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-800 rounded-md shadow-sm p-2 bg-gray-50" value={generatedDescription} />
                                     </div>
                                 )}

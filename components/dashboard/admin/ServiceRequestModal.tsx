@@ -74,7 +74,7 @@ const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({ request, onCl
             <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col" onClick={e => e.stopPropagation()}>
                 <div className="flex justify-between items-center p-6 border-b border-border-light dark:border-border-dark">
                     <h2 className="text-xl font-bold">Demande de Service</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800 dark:hover:text-white">
+                    <button type="button" onClick={onClose} className="text-gray-500 hover:text-gray-800 dark:hover:text-white">
                         <span className="material-symbols-outlined">close</span>
                     </button>
                 </div>

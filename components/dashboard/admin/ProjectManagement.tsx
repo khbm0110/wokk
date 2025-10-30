@@ -1,6 +1,7 @@
 
 
 
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { getAllProjects, getAdmins, updateProjectStatus } from '../../../services/adminService';
 import { getReportsByProject, publishReport } from '../../../services/reportService'; // New import
@@ -122,7 +123,9 @@ const ManagementModal: React.FC<{
             <div className="bg-white dark:bg-card-dark p-6 rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col">
                 <div className="flex justify-between items-center pb-4 border-b border-border-light dark:border-border-dark">
                     <h2 className="text-xl font-bold">Gérer le projet : {project.title[language]}</h2>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800">&times;</button>
+                    <button type="button" onClick={onClose} className="text-gray-500 hover:text-gray-800 dark:hover:text-white">
+                        <span className="material-symbols-outlined">close</span>
+                    </button>
                 </div>
                 <div className="overflow-y-auto mt-4 space-y-4">
                     <h3 className="font-bold">Rapports et Mises à Jour</h3>

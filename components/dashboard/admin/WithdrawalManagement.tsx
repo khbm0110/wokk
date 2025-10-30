@@ -24,7 +24,7 @@ const WithdrawalManagement = () => {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState<string>('all');
     const { addNotification } = useNotification();
-    const { currency } = useLanguage();
+    const { currency, t } = useLanguage();
 
     const fetchData = async () => {
         setLoading(true);
@@ -64,11 +64,11 @@ const WithdrawalManagement = () => {
     return (
         <Card>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Gestion des Retraits ({filteredRequests.length})</h2>
+                <h2 className="text-xl font-bold">{t('admin.withdrawals.title')} ({filteredRequests.length})</h2>
                 <select onChange={(e) => setFilter(e.target.value)} className="border rounded-md p-2">
-                    <option value="all">Tous</option>
+                    <option value="all">{t('all')}</option>
                     {Object.values(WithdrawalStatus).map((status) => (
-                        <option key={status} value={status}>{status}</option>
+                        <option key={status} value={status}>{t(`admin.withdrawals.status.${status}`)}</option>
                     ))}
                 </select>
             </div>
@@ -76,12 +76,12 @@ const WithdrawalManagement = () => {
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
-                            <th className="px-6 py-3">Utilisateur</th>
-                            <th className="px-6 py-3">Montant</th>
-                            <th className="px-6 py-3">Infos Bancaires</th>
-                            <th className="px-6 py-3">Date de Demande</th>
-                            <th className="px-6 py-3">Statut</th>
-                            <th className="px-6 py-3">Actions</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.user')}</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.amount')}</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.bankInfo')}</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.requestDate')}</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.status')}</th>
+                            <th className="px-6 py-3">{t('admin.withdrawals.actions')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,12 +95,12 @@ const WithdrawalManagement = () => {
                                 <td className="px-6 py-4">
                                     {req.status === WithdrawalStatus.PENDING && (
                                         <div className="flex flex-col sm:flex-row gap-2">
-                                            <Button size="sm" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.APPROVED)}>Approuver</Button>
-                                            <Button size="sm" variant="danger" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.REJECTED)}>Rejeter</Button>
+                                            <Button size="sm" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.APPROVED)}>{t('admin.withdrawals.approve')}</Button>
+                                            <Button size="sm" variant="danger" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.REJECTED)}>{t('admin.withdrawals.reject')}</Button>
                                         </div>
                                     )}
                                      {req.status === WithdrawalStatus.APPROVED && (
-                                        <Button size="sm" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.COMPLETED)}>Marquer comme Complété</Button>
+                                        <Button size="sm" onClick={() => handleUpdateStatus(req.id, WithdrawalStatus.COMPLETED)}>{t('admin.withdrawals.markAsCompleted')}</Button>
                                     )}
                                 </td>
                             </tr>

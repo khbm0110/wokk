@@ -41,12 +41,12 @@ const WithdrawPage = () => {
         if (!user) return;
         
         if (balance === null || amount > balance) {
-            addNotification("Solde insuffisant pour ce retrait.", "error");
+            addNotification(t('withdraw.insufficientBalance'), "error");
             return;
         }
 
         if (rib.length !== 24 || !/^\d+$/.test(rib)) {
-            addNotification("Le RIB doit être composé de 24 chiffres.", "error");
+            addNotification(t('withdraw.invalidRib'), "error");
             return;
         }
 
@@ -69,7 +69,7 @@ const WithdrawPage = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="p-4 bg-primary/10 rounded-lg text-center">
-                        <p className="text-sm text-primary/80">Solde disponible</p>
+                        <p className="text-sm text-primary/80">{t('withdraw.availableBalance')}</p>
                         {loadingBalance ? <Spinner/> : <p className="text-2xl font-bold text-primary">{new Intl.NumberFormat('fr-MA').format(balance ?? 0)} {currency}</p>}
                     </div>
 

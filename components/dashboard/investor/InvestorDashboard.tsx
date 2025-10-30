@@ -20,7 +20,8 @@ const InvestorDashboardHome: React.FC<{
     investedProjects: Project[];
     t: (key: string) => string;
     CURRENCY: string;
-}> = ({ investments, investedProjects, t, CURRENCY }) => {
+    language: 'ar' | 'fr';
+}> = ({ investments, investedProjects, t, CURRENCY, language }) => {
     
     const portfolioData = useMemo(() => investments.map(investment => {
         const project = investedProjects.find(p => p.id === investment.projectId);
@@ -76,7 +77,7 @@ const InvestorDashboardHome: React.FC<{
                                 {portfolioData.slice(0, 5).map(({ project, amount, mockReturn }) => {
                                     return (
                                         <tr key={project!.id} className="border-b border-border-light dark:border-border-dark last:border-b-0">
-                                            <td className="p-4 font-semibold text-text-main-light dark:text-text-main-dark">{project!.title.fr}</td>
+                                            <td className="p-4 font-semibold text-text-main-light dark:text-text-main-dark">{project!.title[language]}</td>
                                             <td className="p-4 text-text-secondary-light dark:text-text-secondary-dark">{new Intl.NumberFormat('fr-MA').format(amount)} {CURRENCY}</td>
                                             <td className="p-4"><span className={`inline-flex items-center rounded-full bg-success-bg px-2.5 py-1 text-xs font-semibold text-success`}>{project!.status.replace('_', ' ')}</span></td>
                                             <td className="p-4 font-semibold text-success">+{new Intl.NumberFormat('fr-MA').format(mockReturn)} {CURRENCY}</td>
@@ -96,7 +97,7 @@ const InvestorDashboardHome: React.FC<{
 
 const InvestorDashboard = () => {
     const { user, logout } = useAuth();
-    const { t, currency: CURRENCY } = useLanguage();
+    const { t, currency: CURRENCY, language } = useLanguage();
     const navigate = useNavigate();
     
     const [investments, setInvestments] = useState<Investment[]>([]);
@@ -178,7 +179,7 @@ const InvestorDashboard = () => {
         }
         switch (activeView) {
             case 'dashboard':
-                return <InvestorDashboardHome investments={investments} investedProjects={investedProjects} t={t} CURRENCY={CURRENCY} />;
+                return <InvestorDashboardHome investments={investments} investedProjects={investedProjects} t={t} CURRENCY={CURRENCY} language={language} />;
             case 'wallet':
                 return <WalletView wallet={wallet} transactions={transactions} />;
             case 'profile':
